@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
+  devise_for :users, :controllers => {:registrations => "registrations"}
+
   resources :memberships
   resources :listings
   resources :lists
-  devise_for :users
   resources :movies
   root 'pages#home'
 
