@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :listings
   resources :lists
   devise_for :users
   resources :movies
