@@ -6,4 +6,6 @@ class List < ActiveRecord::Base
 
   has_many :memberships
 
+  scope :by_user, lambda { |user| where(:user_id => user.id) }
+
 end

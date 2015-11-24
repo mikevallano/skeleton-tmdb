@@ -7,6 +7,14 @@ class MoviesController < ApplicationController
     @movies = Movie.all
   end
 
+  def my_movies
+    if params["tag"]
+      @my_movies = current_user.movies.tagged_with(params["movietag"])
+    else
+      @my_movies = current_user.movies
+    end
+  end
+
   # GET /movies/1
   # GET /movies/1.json
   def show
