@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :memberships
   resources :listings
   resources :lists
-  get 'my-movies', to: 'movies#my_movies' #this will eventually go to movies#index
+  get 'my-movies', to: 'movies#my_movies', as: :my_movies #this will eventually go to movies#index
   resources :movies
   root 'pages#home'
 
