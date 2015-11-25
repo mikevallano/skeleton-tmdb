@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
 
   has_many :movies, through: :listings
 
-  has_many :memberships
+  has_many :memberships, :foreign_key => "member_id"
   has_many :member_lists, :through => :memberships,
   :source => :list
 
