@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :taggings
+  resources :tags
   devise_for :users, :controllers => {:registrations => "registrations"}
 
   resources :memberships

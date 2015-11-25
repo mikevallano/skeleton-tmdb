@@ -16,4 +16,8 @@ class User < ActiveRecord::Base
   has_many :member_movies, :through => :member_lists,
   :source => :movies
 
+  has_many :tags
+  has_many :tagged_movies, :through => :tags,
+  :source => :user
+
 end
