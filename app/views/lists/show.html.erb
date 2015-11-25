@@ -5,10 +5,23 @@
   <%= @list.name %>
 </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @list.user %>
-</p>
+<table>
+  <thead>
+    <tr>
+      <th>Movies</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @list.movies.each do |movie| %>
+      <tr>
+        <td><%= movie.title %></td>
+        <td><%= link_to 'Remove from this list', list_listing_path(@list, movie), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_list_path(@list) %> |
 <%= link_to 'Back', lists_path %>

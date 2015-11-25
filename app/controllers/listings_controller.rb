@@ -1,7 +1,5 @@
 class ListingsController < ApplicationController
 
-  before_action :set_listing, only: [:destroy]
-
   def create
     @listing = Listing.new(listing_params)
 
@@ -17,22 +15,20 @@ class ListingsController < ApplicationController
   end
 
   def destroy
+    #find_by returns a record, as opposed to where, which returns a relation
+    @listing = current_user.listings.find_by("list_id = ? AND movie_id = ?", params[:list_id], params[:id])
     @listing.destroy
     respond_to do |format|
-      format.html { redirect_to my_movies_path, notice: 'Movie was removed.' }
+      format.html { redirect_to movies_path, notice: 'Movie was removed from list.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_listing
-      @listing = Listing.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def listing_params
-      params.require(:listing).permit(:list_id, :movie_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def listing_params
+    params.require(:listing).permit(:list_id, :movie_id)
+  end
 
 end
