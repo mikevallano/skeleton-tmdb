@@ -20,4 +20,8 @@ class User < ActiveRecord::Base
   has_many :tagged_movies, :through => :tags,
   :source => :user
 
+  has_many :notes
+  has_many :watched_movies, :through => :notes,
+  :source => :movie
+
 end
