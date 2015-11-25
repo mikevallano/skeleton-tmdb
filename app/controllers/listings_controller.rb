@@ -15,8 +15,7 @@ class ListingsController < ApplicationController
   end
 
   def destroy
-    #find_by returns a record, as opposed to where, which returns a relation
-    @listing = current_user.listings.find_by("list_id = ? AND movie_id = ?", params[:list_id], params[:id])
+    @listing = current_user.listings.find_by("list_id = ? AND movie_id = ?", params[:list_id], params[:movie_id])
     @listing.destroy
     respond_to do |format|
       format.html { redirect_to movies_path, notice: 'Movie was removed from list.' }
