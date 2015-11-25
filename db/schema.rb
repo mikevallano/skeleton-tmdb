@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125222258) do
+ActiveRecord::Schema.define(version: 20151125222938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,12 +28,12 @@ ActiveRecord::Schema.define(version: 20151125222258) do
 
   create_table "lists", force: :cascade do |t|
     t.string   "name"
-    t.integer  "user_id"
+    t.integer  "owner_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "lists", ["user_id"], name: "index_lists_on_user_id", using: :btree
+  add_index "lists", ["owner_id"], name: "index_lists_on_owner_id", using: :btree
 
   create_table "memberships", force: :cascade do |t|
     t.integer  "member_id"
@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(version: 20151125222258) do
 
   add_foreign_key "listings", "lists"
   add_foreign_key "listings", "movies"
-  add_foreign_key "lists", "users"
+  add_foreign_key "lists", "users", column: "owner_id"
   add_foreign_key "memberships", "lists"
   add_foreign_key "memberships", "users", column: "member_id"
 end

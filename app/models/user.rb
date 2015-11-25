@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :lists
+  has_many :lists, :foreign_key => "owner_id"
   has_many :listings, through: :lists
 
   has_many :movies, through: :listings
