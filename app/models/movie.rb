@@ -21,8 +21,8 @@ class Movie < ActiveRecord::Base
     end
   end
 
-  def self.tagged_with(name)
-    Tag.find_by_name!(name).movies
+  def self.tagged_with(name, user)
+    Tag.by_user(user).find_by_name!(name).movies
   end
 
   def tag_list

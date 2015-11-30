@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
 
   def my_movies
     if params["tag"]
-      @my_movies = current_user.movies.tagged_with(params["tag"])
+      @my_movies = current_user.movies.tagged_with(params["tag"], current_user)
     else
       @my_movies = current_user.movies
     end
