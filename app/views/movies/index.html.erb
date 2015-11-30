@@ -17,7 +17,7 @@
         <td><%= movie.title %></td>
         <% if !current_user.movies.include?(movie) %>
           <td><%= form_for(@listing) do |f| %>
-                <%= f.collection_select :list_id, List.by_user(current_user), :id, :name %>
+                <%= f.collection_select :list_id, current_user.lists, :id, :name %>
                 <%= f.hidden_field :movie_id, value: movie.id %>
                 <%= f.submit "add" %>
             <% end %>
