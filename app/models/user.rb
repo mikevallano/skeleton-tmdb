@@ -24,4 +24,10 @@ class User < ActiveRecord::Base
   has_many :watched_movies, :through => :notes,
   :source => :movie
 
+  def uniq_tags(names)
+    self.tags.uniq << names.split(",").map do |t|
+      Tag.by_user(self).where(name: t.strip.gsub(' ','-')).first_or_create!
+    end
+  end
+
 end

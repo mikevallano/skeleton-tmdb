@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :notes
-  resources :taggings
-  resources :tags
   devise_for :users, :controllers => {:registrations => "registrations"}
+  resources :notes
+  # resources :taggings
+  get 'tags/:tag', to: 'movies#my_movies', as: :tag
+  resources :tags, only:[:create]
 
   resources :memberships
   resources :lists

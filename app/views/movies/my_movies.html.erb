@@ -12,6 +12,15 @@
     <% @my_movies.each do |movie| %>
       <tr>
         <td><%= movie.title %></td>
+        <td>Tags: <%= raw movie.tags.by_user(current_user).map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></td>
+      <td>
+        <%= form_tag('/tags') do %>
+          <%= label_tag(:tag_list, "tags:") %>
+          <%= text_field_tag(:tag_list) %>
+          <%= hidden_field_tag(:movie_id, "#{movie.id}") %>
+          <%= submit_tag("add tags") %>
+        <% end %>
+      </td>
       </tr>
     <% end %>
   </tbody>

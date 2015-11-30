@@ -24,16 +24,15 @@ class TagsController < ApplicationController
   # POST /tags
   # POST /tags.json
   def create
-    @tag = Tag.new(tag_params)
+    @tag_names = params[:tag_list] #user enters a list of comma-separated tags
+    @movie = Movie.find(params[:movie_id])
+
+    current_user.uniq_tags(@tag_names) #method in user.rb that adds new tags for the user
+
+    @movie.taggerd(@tag_names, current_user) #method in movie.rb that takes the tags and adds the taggings
 
     respond_to do |format|
-      if @tag.save
-        format.html { redirect_to @tag, notice: 'Tag was successfully created.' }
-        format.json { render :show, status: :created, location: @tag }
-      else
-        format.html { render :new }
-        format.json { render json: @tag.errors, status: :unprocessable_entity }
-      end
+        format.html { redirect_to my_movies_path, notice: 'Tag was successfully created.' }
     end
   end
 
@@ -69,6 +68,6 @@ class TagsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tag_params
-      params.require(:tag).permit(:name, :user_id)
+      params.require(:tag).permit(:name, :user_id, :tag_list)
     end
 end
