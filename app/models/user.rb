@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def all_lists
+    (self.lists | self.member_lists).uniq
+  end
+
 end

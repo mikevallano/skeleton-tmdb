@@ -4,7 +4,7 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.by_user(current_user)
+    @lists = current_user.all_lists
   end
 
   # GET /lists/1
