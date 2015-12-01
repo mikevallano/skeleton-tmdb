@@ -8,12 +8,6 @@ class Movie < ActiveRecord::Base
   has_many :notes
 
 
-  # def tag_list=(names, user)
-  #   self.tags_by_user = names.split(",").map do |n|
-  #     Tag.by_user(user).where(name: n.strip).first_or_create!
-  #   end
-  # end
-
   def taggerd(names, user)
     names.split(",").map do |n|
       @tag = Tag.by_user(user).find_by_name(n.strip.gsub(' ','-'))
@@ -21,6 +15,10 @@ class Movie < ActiveRecord::Base
         self.tags << @tag
       end
     end
+  end
+
+  def self.group_tagged_with(name, list)
+    Tag.by_list(list).find_by_name!(name).movies
   end
 
   def self.tagged_with(name, user)

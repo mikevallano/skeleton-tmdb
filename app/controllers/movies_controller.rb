@@ -10,7 +10,12 @@ class MoviesController < ApplicationController
 
   def my_movies
     if params["tag"]
-      @my_movies = current_user.movies.tagged_with(params["tag"], current_user)
+      if params[:list_id]
+        @list = List.find(params[:list_id])
+        @my_movies = @list.movies.group_tagged_with(params['tag'], @list)
+      else
+        @my_movies = current_user.movies.tagged_with(params["tag"], current_user)
+      end
     else
       @my_movies = current_user.movies
     end

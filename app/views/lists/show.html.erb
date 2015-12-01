@@ -17,6 +17,11 @@
     <% @list.movies.each do |movie| %>
       <tr>
         <td><%= movie.title %></td>
+        <% if @list.members.count > 1 %>
+          <td><%= raw movie.tags.by_list(@list).map(&:name).map { |t| link_to t, tag_path(t, :list_id => "#{@list.id}") }.join(', ') %></td>
+        <% else %>
+          <td><%= raw movie.tags.by_user(current_user).map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %></td>
+        <% end %>
         <td><%= link_to 'Remove from this list', delete_listing_path(@list, movie), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
