@@ -17,7 +17,9 @@ class Movie < ActiveRecord::Base
   def taggerd(names, user)
     names.split(",").map do |n|
       @tag = Tag.by_user(user).find_by_name(n.strip.gsub(' ','-'))
-      self.tags << @tag
+      if !self.tags.include?(@tag)
+        self.tags << @tag
+      end
     end
   end
 
