@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => {:registrations => "registrations"}
+
+  get 'tmdb/search'
+  get 'tmdb/more'
 
   resources :invites
-  devise_for :users, :controllers => {:registrations => "registrations"}
   resources :notes
   # resources :taggings
   get 'tags/:tag', to: 'movies#my_movies', as: :tag
