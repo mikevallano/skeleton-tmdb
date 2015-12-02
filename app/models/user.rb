@@ -24,6 +24,13 @@ class User < ActiveRecord::Base
   has_many :watched_movies, :through => :notes,
   :source => :movie
 
+  has_many :sent_invites, :class_name => "Invite",
+  :foreign_key => "sender_id"
+
+  has_many :received_invites, :class_name => "Invite",
+  :foreign_key => "receiver_id"
+
+
   def uniq_tags(names)
     self.tags.uniq << names.split(",").map do |t|
       Tag.by_user(self).where(name: t.strip.gsub(' ','-')).first_or_create!

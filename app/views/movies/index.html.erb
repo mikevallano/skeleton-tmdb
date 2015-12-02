@@ -15,16 +15,16 @@
     <% @movies.each do |movie| %>
       <tr>
         <td><%= movie.title %></td>
-        <% if !current_user.movies.include?(movie) %>
+        <% #if !current_user.movies.include?(movie) %>
           <td><%= form_for(@listing) do |f| %>
                 <%= f.collection_select :list_id, current_user.lists, :id, :name %>
                 <%= f.hidden_field :movie_id, value: movie.id %>
                 <%= f.submit "add" %>
             <% end %>
           </td>
-        <% else %>
-        <td>On my lists.</td>
-        <% end %>
+        <% #else %>
+     <!--    <td>On my lists.</td> -->
+        <% #end %>
         <td><%= link_to 'Show', movie_path(movie) %></td>
         <td><%= link_to 'Edit', edit_movie_path(movie) %></td>
         <td><%= link_to 'Destroy', movie, method: :delete, data: { confirm: 'Are you sure?' } %></td>
