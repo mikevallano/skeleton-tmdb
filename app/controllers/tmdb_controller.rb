@@ -5,12 +5,9 @@ class TmdbController < ApplicationController
 
   def search
     if params[:movie_title]
-      @movie_title = params[:movie_title].gsub(" ","-")
+      @movie_title = params[:movie_title].gsub(' ', '-')
       tmdb_handler_search(@movie_title)
-    else
-      @movie_title = nil
     end
-
   end
 
   def more
@@ -18,7 +15,7 @@ class TmdbController < ApplicationController
       @movie_id = params[:movie_id]
       tmdb_handler_movie_info(@movie_id)
     else
-      @movie_id = nil
+      redirect_to api_search_path
     end
   end
 

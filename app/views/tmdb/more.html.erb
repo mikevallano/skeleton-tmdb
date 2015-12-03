@@ -1,9 +1,10 @@
+
 <h1>Movie: <%= @result[:title] %></h1>
 
   <%= image_tag "http://image.tmdb.org/t/p/w150#{@result[:poster_path]}" %>
   <p>Add this movie to a list:</p>
   <p><%= form_for(Listing.new) do |f| %>
-        <%= f.collection_select :list_id, current_user.lists, :id, :name %>
+        <%= f.collection_select :list_id, current_user.all_lists, :id, :name %>
         <%= hidden_field_tag :tmdb_id, @movie_id %>
         <%= f.submit "add" %>
       <% end %>

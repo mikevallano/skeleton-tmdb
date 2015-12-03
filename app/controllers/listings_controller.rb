@@ -4,17 +4,14 @@ class ListingsController < ApplicationController
 
   def create
     @listing = Listing.new(listing_params)
-
     @tmdb_id = params[:tmdb_id]
 
-    if Movie.exists?(tmdb_id: @tmdb_id)
-      @movie = Movie.find_by_tmdb_id(@tmdb_id)
-      @listing.movie_id = @movie.id
-    else
+    unless Movie.exists?(tmdb_id: @tmdb_id)
       tmdb_handler_add_movie(@tmdb_id)
-      @movie = Movie.find_by_tmdb_id(@tmdb_id)
-      @listing.movie_id = @movie.id
     end
+
+    @movie = Movie.find_by_tmdb_id(@tmdb_id)
+    @listing.movie_id = @movie.id
 
     respond_to do |format|
       if @listing.save
@@ -38,7 +35,6 @@ class ListingsController < ApplicationController
 
   private
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def listing_params
     params.require(:listing).permit(:list_id, :movie_id)
   end
