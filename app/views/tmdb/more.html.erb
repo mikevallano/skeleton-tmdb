@@ -3,19 +3,25 @@
 
 
   <%= image_tag "http://image.tmdb.org/t/p/w150#{@result[:poster_path]}" %>
+  <p><%= form_for(Listing.new) do |f| %>
+        <%= f.collection_select :list_id, current_user.lists, :id, :name %>
+        <%= hidden_field_tag :tmdb_id, @movie_id %>
+        <%= f.submit "add" %>
+      <% end %>
+  </p>
   <p><%= @result[:release_date] %></p>
   <p><%= @result[:vote_average] %></p>
   <p>Genres: <%= @result[:genres].map {|g| g[:name] }.join(", ") %></p>
   <p><%= @result[:overview] %></p>
+  <p>ID: <%= @result %></p>
   <p>Trailer:</p>
   <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @result[:trailers][:youtube][0][:source] %>" frameborder="0" allowfullscreen></iframe>
 
+
+
 <!-- poster_path
-release_date
-overview
-[:trailers][:youtube][0][:source]
+puts parser[:credits][:cast][0..5]
 id
 imdb_id
-vote_average
-[:genres].map {|g| g[:name] }.join(", ")
+
  -->

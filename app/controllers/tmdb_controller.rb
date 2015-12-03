@@ -19,7 +19,7 @@ class TmdbController < ApplicationController
   def more
     if params[:movie_id]
       @movie_id = params[:movie_id]
-      @movie_url = "https://api.themoviedb.org/3/movie/10719?api_key=#{ENV['tmdb_api_key']}&append_to_response=trailers"
+      @movie_url = "https://api.themoviedb.org/3/movie/#{@movie_id}?api_key=#{ENV['tmdb_api_key']}&append_to_response=trailers"
       @content = open(@movie_url).read
       @result = JSON.parse(@content, symbolize_names: true)
     else
