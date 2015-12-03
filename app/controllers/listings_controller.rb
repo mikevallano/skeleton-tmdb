@@ -11,7 +11,7 @@ class ListingsController < ApplicationController
       @movie = Movie.find_by_tmdb_id(@tmdb_id)
       @listing.movie_id = @movie.id
     else
-      tmdb_create_movie(@tmdb_id)
+      tmdb_handler_add_movie(@tmdb_id)
       @movie = Movie.find_by_tmdb_id(@tmdb_id)
       @listing.movie_id = @movie.id
     end
